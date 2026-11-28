@@ -1,6 +1,7 @@
 import { API_URL } from "@/constants/value"
 
 type SendOtpResponse = { message: string };
+type VerifyOtpResponse = {message: string, token: string}
 
 const parse_values = async <T>(res: Response): Promise<T> => {
   let data: any = null;
@@ -35,7 +36,7 @@ export const login = async (email: string): Promise<SendOtpResponse> => {
   return parse_values<SendOtpResponse>(res);
 };
 
-export const verify_otp = async(email:string, otp:number):Promise<SendOtpResponse> =>{
+export const verify_otp = async(email:string, otp:number): Promise<VerifyOtpResponse>=>{
   const res = await fetch(`${API_URL}/api/verify-otp`,{
     method:'POST',
     credentials:'include',

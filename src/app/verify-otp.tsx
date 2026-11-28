@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { OTP_LENGTH, RESEND_SECONDS } from '@/constants/value';
 import Toast from 'react-native-toast-message';
+import * as SecureStore from 'expo-secure-store'
 import { login, verify_otp } from '@/api/authentication';
 
 const OtpPage = () => {
@@ -52,6 +53,7 @@ const OtpPage = () => {
       setLoading(true);
       const data = await verify_otp(email,Number(code))
       Toast.show({type:'success',text1:data.message})
+      SecureStore.setItem("access_token",data.token)
       router.push({
         pathname:'/Home'
       })

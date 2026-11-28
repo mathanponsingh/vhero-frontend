@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable,ActivityIndicator  } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
-
+import * as secureStorage from 'expo-secure-store'
 
 export default function HomePage() {
   const [email, set_email] = useState("");
@@ -33,6 +33,15 @@ export default function HomePage() {
       }
     }
   };
+
+  useEffect(()=>{
+    const token = secureStorage.getItem('access_token')
+    if(token){
+      router.push({
+        pathname:'/Home'
+      })
+    }
+  })
 
   return (
     <SafeAreaView style={styles.container}>
